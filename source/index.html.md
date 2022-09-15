@@ -17,7 +17,7 @@ search: true
 
 > All shell commands are CURL. You can read more about CURL [here](https://curl.haxx.se/).
 
-HollaEx provides a complete RESTful API for developers which allows full access to all the functionalities on the exchange. HollaEx also support websocket for real-time updates.
+MetaTrader provides a complete RESTful API for developers which allows full access to all the functionalities on the exchange. MetaTrader also support websocket for real-time updates.
 
 These endpoints are categorized into public and private. Public endpoints allow you to access public information such as price ticker, orderbook etc while private endpoints require authentication and allow you to get your balance, active orders as well as placing orders.
 
@@ -38,19 +38,19 @@ curl -X POST
 
 > Make sure to replace `$API_KEY`, `$API_SIGNATURE`, and `$API_EXPIRES` with your own key, signature, and expires values.
 
-HollaEx uses HMAC-SHA256 authentication for private user access to the API. HMAC-SHA256 takes a string and secret key (your `api-secret`) and outputs an encoded signature (your `api-signature`). The string being encoded should follow the format `${METHOD}${PATH}${api-expires}`, where `METHOD` is the HTTP method of the request, `PATH` is the path of the request, and `api-expires` is a unix timestamp indicating when the request expires. If the request includes a body, the JSON body object should be appended to the string being encoded e.g. `${METHOD}${PATH}${api-expires}${JSON_BODY}`. You can use an online [HMAC generator](https://www.freeformatter.com/hmac-generator.html) to generate the signature.
+MetaTrader uses HMAC-SHA256 authentication for private user access to the API. HMAC-SHA256 takes a string and secret key (your `api-secret`) and outputs an encoded signature (your `api-signature`). The string being encoded should follow the format `${METHOD}${PATH}${api-expires}`, where `METHOD` is the HTTP method of the request, `PATH` is the path of the request, and `api-expires` is a unix timestamp indicating when the request expires. If the request includes a body, the JSON body object should be appended to the string being encoded e.g. `${METHOD}${PATH}${api-expires}${JSON_BODY}`. You can use an online [HMAC generator](https://www.freeformatter.com/hmac-generator.html) to generate the signature.
 
 
 Examples of strings being encoded:
 
-- `GET` request to `https://api.hollaex.com/v2/user/balance` that expires at `1575516146`
+- `GET` request to `https://cex.meta-dex.live/api/v2/user/balance` that expires at `1575516146`
   - `GET/v2/user/balance1575516146`
-- `POST` request to `https://api.hollaex.com/v2/order` that expires at `1575516146` with body `{"symbol":"btc-usdt","side":"buy","size":0.001,"type":"market"}`
+- `POST` request to `https://cex.meta-dex.live/api/v2/order` that expires at `1575516146` with body `{"symbol":"btc-usdt","side":"buy","size":0.001,"type":"market"}`
   - `POST/v2/order1583284849{"symbol":"btc-usdt","side":"buy","size":0.001,"type":"market"}`
 
-You can register for a new HollaEx `api-key` and `api-secret` in the [security section](https://pro.hollaex.com/security) of hollaex.com.
+You can register for a new MetaTrader `api-key` and `api-secret` in the [security section](https://cex.meta-dex.live/security) of cex.meta-dex.live.
 
-HollaEx expects `api-key`, `api-signature`, and `api-expires` to be included in all Private API requests to the server in the request header with the following format:
+MetaTrader expects `api-key`, `api-signature`, and `api-expires` to be included in all Private API requests to the server in the request header with the following format:
 
 ```
 api-key: <API_KEY>
@@ -64,9 +64,9 @@ You must replace <code>API_KEY</code>, <code>API_SIGNATURE</code>, and <code>API
 
 # API Client Libraries
 
-Client libraries make it simple to utilize our API. Currently, there are two libraries for HollaEx that support three languages:
+Client libraries make it simple to utilize our API. Currently, there are two libraries for MetaTrader that support three languages:
 
-- [HollaEx Node Library](https://github.com/bitholla/hollaex-node-lib) - Our official library that supports Node.js. Connects to both our API and websocket.
+- [Node Library](https://github.com/bitholla/hollaex-node-lib) - Our official library that supports Node.js. Connects to both our API and websocket.
 - [CCXT](https://ccxt.trade) - An authorized library that supports Node.js, PHP, and Python. Connects to our API.
 
 # Public
@@ -76,16 +76,16 @@ Client libraries make it simple to utilize our API. Currently, there are two lib
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/health"
+curl -X GET "https://cex.meta-dex.live/api/v2/health"
 ```
 
 > Response
 
 ```json
 {
-    "name": "HollaEx",
+    "name": "MetaTrader",
     "version": "2.1.0",
-    "host": "https://api.hollaex.com",
+    "host": "https://cex.meta-dex.live/api",
     "basePath": "/v2"
 }
 ```
@@ -93,14 +93,14 @@ This endpoint retrieves the exchange's basic information and checks its health.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/health`
+`GET https://cex.meta-dex.live/api/v2/health`
 
 ## Constants
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/constants"
+curl -X GET "https://cex.meta-dex.live/api/v2/constants"
 ```
 
 > Response
@@ -196,14 +196,14 @@ This endpoint retrieves system information for coins and pairs.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/constants`
+`GET https://cex.meta-dex.live/api/v2/constants`
 
 ## Kit
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/kit"
+curl -X GET "https://cex.meta-dex.live/api/v2/kit"
 ```
 
 > Response
@@ -214,12 +214,12 @@ curl -X GET "https://api.hollaex.com/v2/kit"
     "color": {...},
     "icons": {...},
     "links": {...},
-    "title": "HollaEx",
+    "title": "MetaTrader",
     "captcha": {
         "site_key": ""
     },
     "strings": {...},
-    "api_name": "HollaEx",
+    "api_name": "MetaTrader",
     "defaults": {
         "theme": "dark",
         "language": "en"
@@ -239,9 +239,9 @@ curl -X GET "https://api.hollaex.com/v2/kit"
     "new_user_is_activated": true,
 	"email_verification_required": true,
     "info": {
-        "name": "HollaEx",
+        "name": "MetaTrader",
         "active": true,
-        "url": "https://api.hollaex.com",
+        "url": "https://cex.meta-dex.live/api",
         "is_trial": false,
         "created_at": "2020-10-05T06:46:27.272Z",
         "expiry": "2021-02-04T06:46:27.000Z",
@@ -258,14 +258,14 @@ This endpoint retrieves system kit configurations for the client.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/kit`
+`GET https://cex.meta-dex.live/api/v2/kit`
 
 ## Tiers
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/tiers"
+curl -X GET "https://cex.meta-dex.live/api/v2/tiers"
 ```
 
 > Response
@@ -333,14 +333,14 @@ This endpoint retrieves system tier levels for users.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/tiers`
+`GET https://cex.meta-dex.live/api/v2/tiers`
 
 ## Ticker
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/ticker?symbol=xht-usdt"
+curl -X GET "https://cex.meta-dex.live/api/v2/ticker?symbol=xht-usdt"
 ```
 
 > Response
@@ -361,7 +361,7 @@ This endpoint retrieves ticker information for a pair.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/ticker?symbol=${symbol}`
+`GET https://cex.meta-dex.live/api/v2/ticker?symbol=${symbol}`
 
 ### PARAMETERS
 
@@ -374,7 +374,7 @@ symbol | string | Required | The currency pair symbol (xht-usdt)
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/tickers"
+curl -X GET "https://cex.meta-dex.live/api/v2/tickers"
 ```
 
 > Response
@@ -399,14 +399,14 @@ This endpoint retrieves ticker information for all pairs.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/tickers`
+`GET https://cex.meta-dex.live/api/v2/tickers`
 
 ## Orderbook
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/orderbook?symbol=xht-usdt"
+curl -X GET "https://cex.meta-dex.live/api/v2/orderbook?symbol=xht-usdt"
 ```
 
 > Response
@@ -440,7 +440,7 @@ This endpoint retrieves 10 level bids and 10 level asks of the orderbook for a s
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/orderbook?symbol=${symbol}`
+`GET https://cex.meta-dex.live/api/v2/orderbook?symbol=${symbol}`
 
 ### PARAMETERS
 
@@ -453,7 +453,7 @@ symbol | string | Required | The currency pair symbol (xht-usdt, etc.)
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/orderbooks"
+curl -X GET "https://cex.meta-dex.live/api/v2/orderbooks"
 ```
 
 > Response
@@ -478,14 +478,14 @@ This endpoint retrieves 10 level bids and 10 level asks of the orderbook for all
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/orderbooks`
+`GET https://cex.meta-dex.live/api/v2/orderbooks`
 
 ## Trades
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/trades?symbol=xht-usdt"
+curl -X GET "https://cex.meta-dex.live/api/v2/trades?symbol=xht-usdt"
 ```
 
 > Response
@@ -520,7 +520,7 @@ This endpoint retrieves the last 30 trades.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/trades`
+`GET https://cex.meta-dex.live/api/v2/trades`
 
 ### PARAMETERS
 
@@ -533,7 +533,7 @@ symbol | string | Optional | The currency pair symbol (xht-usdt, etc.)
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/chart?symbol=xht-usdt&resolution=1D&from=1616987453&to=1619579513"
+curl -X GET "https://cex.meta-dex.live/api/v2/chart?symbol=xht-usdt&resolution=1D&from=1616987453&to=1619579513"
 ```
 
 > Response
@@ -566,7 +566,7 @@ This endpoint retrieves a trading pair's trade history HOLCV.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/chart?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}`
+`GET https://cex.meta-dex.live/api/v2/chart?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}`
 
 ### PARAMETERS
 
@@ -582,7 +582,7 @@ to | string | Required | Ending UNIX timestamp
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/charts?resolution=1D&from=1551663947&to=1582768007"
+curl -X GET "https://cex.meta-dex.live/api/v2/charts?resolution=1D&from=1551663947&to=1582768007"
 ```
 
 > Response
@@ -628,7 +628,7 @@ This endpoint retrieves trade history HOLCV for all pairs.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/charts?resolution=${resolution}&from=${from}&to=${to}`
+`GET https://cex.meta-dex.live/api/v2/charts?resolution=${resolution}&from=${from}&to=${to}`
 
 ### PARAMETERS
 
@@ -653,7 +653,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user"
+  "https://cex.meta-dex.live/api/v2/user"
 ```
 
 > Response
@@ -756,7 +756,7 @@ This endpoint gets user's information, wallet address as well as his balance.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user`
+`GET https://cex.meta-dex.live/api/v2/user`
 
 ## Get Balance
 
@@ -767,7 +767,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user/balance"
+  "https://cex.meta-dex.live/api/v2/user/balance"
 ```
 
 > Response
@@ -787,7 +787,7 @@ This endpoint gets a user's balance.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user/balance`
+`GET https://cex.meta-dex.live/api/v2/user/balance`
 
 
 ## Get Deposits
@@ -799,7 +799,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user/deposits"
+  "https://cex.meta-dex.live/api/v2/user/deposits"
 ```
 
 > Response
@@ -835,7 +835,7 @@ This endpoint displays user's deposits
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user/deposits`
+`GET https://cex.meta-dex.live/api/v2/user/deposits`
 
 ### PARAMETERS
 
@@ -866,7 +866,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user/withdrawals"
+  "https://cex.meta-dex.live/api/v2/user/withdrawals"
 ```
 
 > Response
@@ -902,7 +902,7 @@ This endpoint displays user's withdrawals
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user/withdrawals`
+`GET https://cex.meta-dex.live/api/v2/user/withdrawals`
 
 ### PARAMETERS
 
@@ -933,7 +933,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user/withdrawal/fee?symbol=$symbol"
+  "https://cex.meta-dex.live/api/v2/user/withdrawal/fee?symbol=$symbol"
 ```
 
 > Response
@@ -948,7 +948,7 @@ This endpoint gets the withdrawal fee for a certain currency
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user/withdrawal/fee?currency=${currency}`
+`GET https://cex.meta-dex.live/api/v2/user/withdrawal/fee?currency=${currency}`
 
 ### PARAMETERS
 
@@ -967,7 +967,7 @@ curl -X POST
   -H "api-expires: $API_EXPIRES"
   -H "Content-Type: application/json"
   -d '{"currency":$currency,"amount":$amount,"address":$address}'
-  "https://api.hollaex.com/v2/user/withdrawal"
+  "https://cex.meta-dex.live/api/v2/user/withdrawal"
 ```
 
 > Response
@@ -989,7 +989,7 @@ HMAC tokens with the withdrawal permission.
 
 ### HTTP Request
 
-`POST https://api.hollaex.com/v2/user/withdrawal`
+`POST https://cex.meta-dex.live/api/v2/user/withdrawal`
 
 ### PARAMETERS
 
@@ -1009,7 +1009,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/user/trades"
+  "https://cex.meta-dex.live/api/v2/user/trades"
 ```
 
 > Response
@@ -1036,7 +1036,7 @@ This endpoint displays user's trades
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/user/trades`
+`GET https://cex.meta-dex.live/api/v2/user/trades`
 
 ### PARAMETERS
 
@@ -1060,7 +1060,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/orders"
+  "https://cex.meta-dex.live/api/v2/orders"
 ```
 
 > Response
@@ -1099,7 +1099,7 @@ This endpoint gets all active orders placed by the user
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/orders`
+`GET https://cex.meta-dex.live/api/v2/orders`
 
 ### PARAMETERS
 
@@ -1124,7 +1124,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/order?$order_id"
+  "https://cex.meta-dex.live/api/v2/order?$order_id"
 ```
 
 > Response
@@ -1152,7 +1152,7 @@ This endpoint gets an order by its id.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/order?order_id=${order_id}`
+`GET https://cex.meta-dex.live/api/v2/order?order_id=${order_id}`
 
 ### PARAMETERS
 
@@ -1171,7 +1171,7 @@ curl -X POST
   -H "api-expires: $API_EXPIRES"
   -H "Content-Type: application/json"
   -d '{"symbol":$symbol,"side":$side,"size":$size,"type":$type,"price":$price}'
-  "https://api.hollaex.com/v2/order"
+  "https://cex.meta-dex.live/api/v2/order"
 ```
 
 > Response
@@ -1204,7 +1204,7 @@ This endpoint places an order for the user
 
 ### HTTP Request
 
-`POST https://api.hollaex.com/v2/order`
+`POST https://cex.meta-dex.live/api/v2/order`
 
 ### PARAMETERS
 
@@ -1230,7 +1230,7 @@ curl -X DELETE
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/order/all?symbol=xht-usdt"
+  "https://cex.meta-dex.live/api/v2/order/all?symbol=xht-usdt"
 ```
 
 > Response
@@ -1266,7 +1266,7 @@ This endpoint cancels all orders of the same currency pair symbol, placed by the
 
 ### HTTP Request
 
-`DELETE https://api.hollaex.com/v2/order/all`
+`DELETE https://cex.meta-dex.live/api/v2/order/all`
 
 ### PARAMETERS
 
@@ -1283,7 +1283,7 @@ curl -X GET
   -H "api-key: $API_KEY"
   -H "api-signature: $API_SIGNATURE"
   -H "api-expires: $API_EXPIRES"
-  "https://api.hollaex.com/v2/order?order_id=$order_id"
+  "https://cex.meta-dex.live/api/v2/order?order_id=$order_id"
 ```
 
 > Response
@@ -1316,7 +1316,7 @@ This endpoint cancels an order by getting its id
 
 ### HTTP Request
 
-`DELETE https://api.hollaex.com/v2/order?order_id=${order_id}`
+`DELETE https://cex.meta-dex.live/api/v2/order?order_id=${order_id}`
 
 ### PARAMETERS
 
@@ -1333,7 +1333,7 @@ HollaEx fully supports the TradingView UDF API.
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/udf/config"
+curl -X GET "https://cex.meta-dex.live/api/v2/udf/config"
 ```
 
 > Response
@@ -1354,14 +1354,14 @@ This endpoint retrieves the TradingView UDF config.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/udf/config`
+`GET https://cex.meta-dex.live/api/v2/udf/config`
 
 ## History
 
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/udf/history?symbol=xht-usdt&resolution=1D&from=1551663947&to=1582768007"
+curl -X GET "https://cex.meta-dex.live/api/v2/udf/history?symbol=xht-usdt&resolution=1D&from=1551663947&to=1582768007"
 ```
 
 > Response
@@ -1380,7 +1380,7 @@ This endpoint retrieves the TradigView UDF history HOLCV.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/udf/history?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}`
+`GET https://cex.meta-dex.live/api/v2/udf/history?symbol=${symbol}&resolution=${resolution}&from=${from}&to=${to}`
 
 ### PARAMETERS
 
@@ -1396,7 +1396,7 @@ to | string | Required | Ending UNIX timestamp
 > Request
 
 ```shell
-curl -X GET "https://api.hollaex.com/v2/udf/symbols?symbol=xht-usdt"
+curl -X GET "https://cex.meta-dex.live/api/v2/udf/symbols?symbol=xht-usdt"
 ```
 
 > Response
@@ -1420,7 +1420,7 @@ This endpoint retrieves system a TradingView UDF symbol.
 
 ### HTTP Request
 
-`GET https://api.hollaex.com/v2/udf/symbols?symbol=${symbol}`
+`GET https://cex.meta-dex.live/api/v2/udf/symbols?symbol=${symbol}`
 
 ### PARAMETERS
 
@@ -1430,7 +1430,7 @@ symbol | string | Required | The currency pair symbol (xht-usdt, etc.)
 
 # Websocket
 
-Connection to public and private channels are available through the path `https://api.hollaex.com/stream`. HollaEx Exchanges can be connected to using any websocket libraries. For this documentation, we will use the library [`ws`]('https://github.com/websockets/ws').
+Connection to public and private channels are available through the path `https://cex.meta-dex.live/api/stream`. HollaEx Exchanges can be connected to using any websocket libraries. For this documentation, we will use the library [`ws`]('https://github.com/websockets/ws').
 
 ## Connecting
 
@@ -1441,13 +1441,13 @@ Connection to public and private channels are available through the path `https:
 	const WebSocket = require('ws');
 
 	// Public
-	const client = new WebSocket('https://api.hollaex.com/stream');
+	const client = new WebSocket('https://cex.meta-dex.live/api/stream');
 
 	// Private Bearer
-	const client = new WebSocket(`https://api.hollaex.com/stream?authorization=Bearer%20${TOKEN}`);
+	const client = new WebSocket(`https://cex.meta-dex.live/api/stream?authorization=Bearer%20${TOKEN}`);
 
 	// Private HMAC
-	const client = new WebSocket(`https://api.hollaex.com/stream?api-key=${API-KEY}&api-signature=${API-SIGNATURE}&api-expires=${API-EXPIRES}`);
+	const client = new WebSocket(`https://cex.meta-dex.live/api/stream?api-key=${API-KEY}&api-signature=${API-SIGNATURE}&api-expires=${API-EXPIRES}`);
 
 	client.on('open', () => {
 		// Ping message to keep connection alive
@@ -1469,7 +1469,7 @@ Websocket connections will disconnect if a message is not sent within one minute
 
 ### PATH
 
-`https://api.hollaex.com/stream`
+`https://cex.meta-dex.live/api/stream`
 
 ### PARAMETERS
 
