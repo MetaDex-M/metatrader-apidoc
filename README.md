@@ -1,4 +1,4 @@
-# HollaEx API Documentation
+# HollaEx API Documentation for MetaTrader
 
 HollaEx API allows users to interact with HollaEx through RESTful API using any programming language.
 
